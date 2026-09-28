@@ -13,6 +13,7 @@ Site language: **French, LTR** (D-15). No Arabic RTL, no language switcher.
 - Motion (D-17): GSAP + ScrollTrigger only via `src/lib/motion/gsap.ts` and the `Reveal` / `Parallax` components; CSS for hover/header/above-the-fold intro. Always reduced-motion safe.
 - Checks (run from the repo root): `npx tsc --noEmit`, `npm run lint`, `npm run build`.
 - Hostinger (D-24): keep `next.config.mjs` (not .ts), `build` = `next build --webpack`, and `@next/swc-wasm-nodejs` pinned to the same version as `next`. Reproduce Hostinger locally with `NEXT_TEST_WASM=1 npm run build`.
+- Maintenance (D-26): ON unless `MAINTENANCE_MODE=off`. Local dev: put `MAINTENANCE_MODE=off` in `.env.local` to work on the store.
 
 ## Read first (do not re-analyze sources already documented)
 - `docs/batches/` — latest batch status file = current state and next step.

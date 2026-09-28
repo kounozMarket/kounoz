@@ -334,6 +334,11 @@
  * Floating WhatsApp button states. Unlayered on purpose so they win over the
  * button's own utility classes.
  */
+/* Maintenance page: no store chrome (header, menu, footer). */
+body:has([data-maintenance]) :is(body > header, #site-menu, body > footer) {
+  display: none;
+}
+
 body:has(#site-menu:not([inert])) [data-fab] {
   opacity: 0;
   pointer-events: none;
