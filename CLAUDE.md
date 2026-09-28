@@ -1,15 +1,17 @@
 # KONOUZ MARKET — Claude Code instructions
 
+@AGENTS.md
+
 Moroccan COD e-commerce store (konouzmarket.shop). Headless: **Next.js storefront + WordPress/WooCommerce backend**. Mobile-first, conversion-focused, dark premium design. Traffic mainly from TikTok/Meta ads.
 
 Site language: **French, LTR** (D-15). No Arabic RTL, no language switcher.
 
 ## Code
-- Storefront app: `storefront/` (Next.js 16 App Router, TypeScript, Tailwind CSS v4). Read `storefront/AGENTS.md`: this Next.js version differs from training data — check `storefront/node_modules/next/dist/docs/` before using an API.
-- Design tokens: `storefront/src/app/globals.css` (`@theme`). Site config and placeholders: `storefront/src/config/site.ts`.
+- The Next.js app lives at the **repository root** (D-23, required by Hostinger): Next.js 16 App Router, TypeScript, Tailwind CSS v4. Read `AGENTS.md`: this Next.js version differs from training data — check `node_modules/next/dist/docs/` before using an API.
+- Design tokens: `src/app/globals.css` (`@theme`). Site config and placeholders: `src/config/site.ts`.
 - Font (D-21): Plus Jakarta Sans only (`font-sans`; `font-display` is an alias). Modern store look: `card`, `glass`, `eyebrow` pill, `text-gold`, `bg-motif` (product line-motif background) utilities in `globals.css`.
 - Motion (D-17): GSAP + ScrollTrigger only via `src/lib/motion/gsap.ts` and the `Reveal` / `Parallax` components; CSS for hover/header/above-the-fold intro. Always reduced-motion safe.
-- Checks (run from `storefront/`): `npx tsc --noEmit`, `npm run lint`, `npm run build`.
+- Checks (run from the repo root): `npx tsc --noEmit`, `npm run lint`, `npm run build`.
 
 ## Read first (do not re-analyze sources already documented)
 - `docs/batches/` — latest batch status file = current state and next step.
