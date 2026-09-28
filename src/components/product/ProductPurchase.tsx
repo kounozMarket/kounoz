@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { CodFields } from "@/components/order/CodFields";
 import { OrderSummary } from "@/components/order/OrderSummary";
 import { QtyStepper } from "@/components/order/QtyStepper";
-import { SubmitNotice } from "@/components/order/SubmitNotice";
+import { SubmitArea } from "@/components/order/SubmitArea";
 import { useCodForm } from "@/components/order/useCodForm";
 import { Price, formatPrice } from "@/components/product/Price";
 import { buttonClasses } from "@/components/ui/button";
@@ -26,7 +26,7 @@ export function ProductPurchase({ product }: { product: ProductSummary }) {
   const [showBar, setShowBar] = useState(false);
   const buyRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLElement>(null);
-  const form = useCodForm();
+  const form = useCodForm({ getItems: () => [{ id: product.id, qty }] });
   const nameId = `order-name-${product.id}`;
 
   useEffect(() => {
@@ -121,14 +121,7 @@ export function ProductPurchase({ product }: { product: ProductSummary }) {
             <CodFields values={form.values} errors={form.errors} onChange={form.onChange} nameInputId={nameId} />
           </div>
           <OrderSummary step={3} lines={[{ product, qty }]} onQtyChange={(_, q) => setQty(clampQty(q))}>
-            {form.status === "pending-backend" ? (
-              <SubmitNotice />
-            ) : (
-              <button type="submit" className={buttonClasses("primary", "w-full")}>
-                Confirmer la commande
-                <ArrowRightIcon />
-              </button>
-            )}
+            <SubmitArea status={form.status} message={form.message} />
           </OrderSummary>
         </form>
       </section>

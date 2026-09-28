@@ -27,7 +27,7 @@ The PDFs are nakamastore.ma screenshots: inspiration only, never clone.
 ## Non-negotiables
 - COD only, no online payment, no account. Order form fields only: full name, phone (WhatsApp), city, address.
 - Ordering (D-22): primary « Commander maintenant » = inline COD form on the product page; secondary « Ajouter au panier » → `/panier` → `/commande` (same fields). Direct order stays the main flow.
-- Order sending (WooCommerce + Sheets + Purchase event) is not connected yet; forms validate and show a "not sent" notice. Floating WhatsApp on all pages. Reassurance badges.
+- Orders (D-28): `/api/commande` creates the WooCommerce COD order server-side (prices from Woo only) → `/merci/[id]?cle=`. Google Sheets + Purchase events (Pixel/CAPI/TikTok, fired once on the thank-you page) still to do. Floating WhatsApp on all pages. Reassurance badges.
 - Purchase event only after successful COD order, never duplicated on refresh. Meta Pixel + CAPI, TikTok Pixel.
 - Orders → Google Sheets in real time (Nom, Tél, Ville, Produit, Prix, Date).
 - Mobile load < 2 s, WebP images, green PageSpeed mobile.

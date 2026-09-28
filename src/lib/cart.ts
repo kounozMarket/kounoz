@@ -13,9 +13,9 @@ import type { ProductSummary } from "@/types/product";
 export type CartProduct = Omit<ProductSummary, "descriptionHtml" | "gallery">;
 export type CartLine = { id: string; qty: number; product: CartProduct };
 
-export const QTY_MIN = 1;
-/** UI cap per line (Recommendation; stock rules not specified — Q-18). */
-export const QTY_MAX = 10;
+import { QTY_MAX, QTY_MIN } from "@/lib/cart-limits";
+
+export { QTY_MAX, QTY_MIN };
 
 const KEY = "km-cart";
 const EVENT = "km-cart-change";

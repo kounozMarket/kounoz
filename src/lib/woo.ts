@@ -30,6 +30,27 @@ export async function wooGet<T>(path: string, { auth = true }: { auth?: boolean 
   return res.json() as Promise<T>;
 }
 
+/**
+ * Uncached request (orders, live stock/price checks). Returns the parsed JSON body
+ * and the HTTP status; never throws on HTTP errors so callers can map messages.
+ */
+export async function wooRequest<T>(
+  method: "GET" | "POST" | "DELETE",
+  path: string,
+  body?: unknown,
+): Promise<{ ok: boolean; status: number; data: T }> {
+  const cfg = config();
+  if (!cfg) throw new Error("WooCommerce is not configured (WOO_URL / WOO_CONSUMER_KEY / WOO_CONSUMER_SECRET).");
+  const res = await fetch(`${cfg.url}/wp-json/${path}`, {
+    method,
+    headers: { Authorization: cfg.auth, Accept: "application/json", ...(body ? { "Content-Type": "application/json" } : {}) },
+    body: body ? JSON.stringify(body) : undefined,
+    cache: "no-store",
+  });
+  const data = (await res.json().catch(() => null)) as T;
+  return { ok: res.ok, status: res.status, data };
+}
+
 /* ---- Raw API shapes (only the fields we use) ---- */
 export type WooImage = { id: number; src: string; alt: string };
 export type WooCategoryRef = { id: number; name: string; slug: string };
@@ -53,3 +74,16 @@ export type WooProduct = {
 };
 export type WooCategory = WooCategoryRef & { acf?: { presentation?: string } | unknown[] };
 export type WpMedia = { id: number; media_details?: { width?: number; height?: number } };
+
+export type WooOrder = {
+  id: number;
+  number: string;
+  order_key: string;
+  status: string;
+  total: string;
+  currency: string;
+  date_created: string;
+  payment_method: string;
+  billing: { first_name: string; last_name: string; phone: string; city: string; address_1: string };
+  line_items: { id: number; name: string; product_id: number; quantity: number; total: string }[];
+};
