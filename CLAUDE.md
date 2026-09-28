@@ -2,7 +2,7 @@
 
 @AGENTS.md
 
-Moroccan COD e-commerce store (konouzmarket.shop). Headless: **Next.js storefront + WordPress/WooCommerce backend**. Mobile-first, conversion-focused, dark premium design. Traffic mainly from TikTok/Meta ads.
+Moroccan COD e-commerce store (konouzmarket.com, D-25). Headless: **Next.js storefront + WordPress/WooCommerce backend**. Mobile-first, conversion-focused, dark premium design. Traffic mainly from TikTok/Meta ads.
 
 Site language: **French, LTR** (D-15). No Arabic RTL, no language switcher.
 

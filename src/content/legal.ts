@@ -92,7 +92,7 @@ export const termsOfSale: LegalPageContent = {
   title: "Conditions générales",
   titleLead: "Conditions",
   titleAccent: "générales",
-  intro: "Les règles qui s'appliquent aux commandes passées sur konouzmarket.shop.",
+  intro: "Les règles qui s'appliquent aux commandes passées sur konouzmarket.com.",
   sections: [
     {
       id: "objet",
@@ -100,7 +100,7 @@ export const termsOfSale: LegalPageContent = {
       blocks: [
         {
           type: "p",
-          text: "Les présentes conditions générales encadrent les commandes passées sur le site konouzmarket.shop.",
+          text: "Les présentes conditions générales encadrent les commandes passées sur le site konouzmarket.com.",
         },
       ],
     },

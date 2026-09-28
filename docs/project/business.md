@@ -10,7 +10,7 @@ Primary source: `Cahier des Charges - KONOUZ MARKET (1).docx` (CDC, written in F
 
 ## Identity
 - [A] Store name: **KONOUZ MARKET** (CDC).
-- [A] Domain: **konouzmarket.shop** (CDC).
+- [A] Domain: **konouzmarket.com** (project owner, D-25). The CDC header said konouzmarket.shop.
 - [A] Current hosting: **Hostinger** (CDC — "Hébergement actuel").
 
 ## Positioning (CDC §1)

@@ -5,7 +5,7 @@
  */
 export const siteConfig = {
   name: "KONOUZ MARKET",
-  domain: "konouzmarket.shop",
+  domain: "konouzmarket.com",
   locale: "fr-MA",
   lang: "fr",
 

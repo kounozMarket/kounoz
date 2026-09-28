@@ -6,7 +6,7 @@ Only **confirmed** decisions are recorded here (source = CDC or project owner). 
 | ID | Date | Decision | Source |
 |---|---|---|---|
 | D-01 | 2026-09-27 | Payment: **100% Cash on Delivery**. No online payment. | CDC §1 |
-| D-02 | 2026-09-27 | Market: **Morocco**. Domain **konouzmarket.shop**. | CDC header |
+| D-02 | 2026-09-27 | Market: **Morocco**. ~~Domain konouzmarket.shop~~ — domain superseded by D-25. | CDC header |
 | D-03 | 2026-09-27 | Stack: **headless** — Next.js storefront + WordPress/WooCommerce backend. Client manages catalog/orders in WP without touching Next.js code. | Project owner brief (CDC §5 left the choice to the provider) |
 | D-04 | 2026-09-27 | Official palette: accent `#D4A359`, hover/focus `#B37D37`, background `#111215`, surface `#1A1B1E`, footer/secondary `#2C2B2A`, text `#F5F5F7`, muted `#9E9E9E`. Gold = sparse accent. This supersedes the CDC's "Noir pur #000000". | Project owner brief (later than CDC) |
 | D-05 | 2026-09-27 | ~~Amended by D-22.~~ No standard cart/checkout funnel. Direct order form on product page (or non-intrusive popup) with only: full name, phone (WhatsApp), city/address. | CDC §3 |
@@ -29,6 +29,7 @@ Only **confirmed** decisions are recorded here (source = CDC or project owner). 
 | D-22 | 2026-09-27 | **Ordering: two flows, direct order first.** Product page primary CTA **« Commander maintenant »** leads to the inline COD form on the same page (CDC flow, sticky mobile CTA bar). Secondary **« Ajouter au panier »** leads to `/panier`, then `/commande` (checkout). Checkout uses the **same 4 fields** (Nom complet, Numéro de téléphone (WhatsApp), Ville, Adresse de livraison, as separate fields) plus the order summary. **COD only**, no online payment, no account. **Quantity selector** (1–10 per line). This amends D-05 (the CDC forbade the classic cart funnel) at the owner's explicit request: the cart is secondary and has no complex billing. | Project owner (Batch 03 brief) |
 | D-23 | 2026-09-28 | The Next.js app is moved to the **repository root** (Hostinger deploys Node.js apps from the repo root). `docs/`, `logos/` and `CLAUDE.md` stay at the root beside it. Client source documents stay local only (`.gitignore`). Supersedes D-16. | Project owner (deployment) |
 | D-24 | 2026-09-28 | **Hostinger build compatibility.** Hostinger build servers have glibc < 2.29, so Next's native SWC (needs 2.30) cannot load and Next falls back to WebAssembly. Therefore: config is plain JS (`next.config.mjs`, no TypeScript compile), production builds use **webpack** (`next build --webpack`, since Turbopack requires native SWC), and `@next/swc-wasm-nodejs` is pinned to the exact Next version in devDependencies (no download at build time). Local `npm run dev` keeps Turbopack. Tailwind oxide / lightningcss (glibc 2.14) and sharp/libvips (2.28) are compatible. Upgrading Next means upgrading `@next/swc-wasm-nodejs` to the same version. | Deployment (Hostinger build log) |
+| D-25 | 2026-09-28 | Final domain: **konouzmarket.com** (Hostinger), replacing konouzmarket.shop from the CDC header. Used in `siteConfig.domain` (metadata base URL) and the legal texts. | Project owner |
 
 ## Open questions (require client confirmation)
 | ID | Question |

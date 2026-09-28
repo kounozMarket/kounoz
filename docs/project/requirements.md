@@ -69,7 +69,7 @@ CDC = `Cahier des Charges - KONOUZ MARKET (1).docx`. Section numbers refer to th
 ## 5. Technical requirements (CDC §5)
 - [A] CMS is the provider's choice: "WordPress/WooCommerce optimisé sans lourdeur, Shopify, ou CMS headless léger", **provided the admin interface is simple**.
 - [A] Project owner decision: **Next.js headless storefront + WordPress/WooCommerce backend** (see `architecture.md`).
-- [A] Deployed on **konouzmarket.shop**. Current hosting: Hostinger.
+- [A] Deployed on **konouzmarket.com** (D-25; the CDC said konouzmarket.shop). Hosting: Hostinger, Node.js app (D-23, D-24).
 - [D] Where the Next.js frontend and WordPress backend will be hosted (Hostinger plan capabilities, subdomain for WP) — Non spécifié.
 
 ## 6. Tracking requirements (CDC §5)
@@ -91,7 +91,7 @@ CDC = `Cahier des Charges - KONOUZ MARKET (1).docx`. Section numbers refer to th
 - [D] Privacy policy, legal mentions (company name, ICE, address), CNDP (Moroccan data protection) declaration — Non spécifié dans le cahier des charges.
 
 ## 8. Deliverables (CDC §6)
-- [A] Functional store deployed on **konouzmarket.shop**.
+- [A] Functional store deployed on **konouzmarket.com** (D-25).
 - [A] Legal pages integrated (shipping, T&C, return/exchange).
 - [A] Integration and formatting of **3 test products (supplied by the client)**.
 - [A] Complete setup of pixels and Google Sheets sync.

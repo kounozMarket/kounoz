@@ -11,7 +11,7 @@ Legend: **[A] Confirmed** · **[C] Recommendation** · **[D] Open question**.
 [Customer mobile browser]
         │  HTML/JS (SSG/ISR, edge-cached)
         ▼
-[Next.js storefront — konouzmarket.shop]
+[Next.js storefront — konouzmarket.com]
         │  server-side only (secrets never in browser)
         ├──► WooCommerce REST API  (read products, create orders)
         ├──► Meta Conversions API  (server Purchase event)
