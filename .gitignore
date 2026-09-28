@@ -1,0 +1,12 @@
+# Client source documents — kept local, never published (public repo)
+/Cahier des Charges*.docx
+/inspire*.pdf
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Env files (only .env.example is committed, inside storefront/)
+.env*
+!.env.example
