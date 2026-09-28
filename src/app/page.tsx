@@ -6,18 +6,22 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ProductShowcase } from "@/components/product/ProductShowcase";
 import { buttonClasses } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/ui/icons";
-import { PlaceholderTag } from "@/components/ui/PlaceholderTag";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { sampleProducts } from "@/data/sample-products";
+import { EmptyCatalog } from "@/components/product/EmptyCatalog";
+import { getProducts } from "@/lib/catalog";
 
 /**
- * Homepage visual FRAME. All copy is placeholder and products come from local
- * SAMPLE data; the final homepage is built later from client / WooCommerce content.
+ * Homepage. Products come from WooCommerce (D-27, refreshed every 5 min);
+ * hero / section copy is still placeholder until the client supplies it.
  */
-export default function HomePage() {
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const products = await getProducts();
+
   return (
     <>
-      <Hero featured={sampleProducts[0]} />
+      <Hero featured={products[0]} />
 
       <Engagements />
 
@@ -33,7 +37,6 @@ export default function HomePage() {
             }
             aside={
               <div className="flex flex-col items-start gap-4 md:items-end">
-                <PlaceholderTag>Données d&apos;exemple</PlaceholderTag>
                 <Link href="/boutique" className={buttonClasses("link")}>
                   Voir toute la boutique
                   <ArrowRightIcon />
@@ -43,13 +46,15 @@ export default function HomePage() {
           />
 
           <div className="mt-10 lg:mt-16">
-            <ProductShowcase products={sampleProducts} />
+            {products.length ? <ProductShowcase products={products} /> : <EmptyCatalog />}
           </div>
 
-          <p className="mt-5 inline-flex items-center gap-2 text-xs font-medium text-muted lg:hidden">
-            Faites glisser pour voir plus
-            <ArrowRightIcon className="size-3.5" />
-          </p>
+          {products.length > 1 ? (
+            <p className="mt-5 inline-flex items-center gap-2 text-xs font-medium text-muted lg:hidden">
+              Faites glisser pour voir plus
+              <ArrowRightIcon className="size-3.5" />
+            </p>
+          ) : null}
         </Reveal>
       </section>
 

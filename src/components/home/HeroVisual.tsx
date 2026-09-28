@@ -1,4 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import type { CSSProperties } from "react";
+import { ProductThumb } from "@/components/product/ProductThumb";
 import { Parallax } from "@/components/motion/Parallax";
 import { Price } from "@/components/product/Price";
 import { ArrowRightIcon, CashIcon, TruckIcon } from "@/components/ui/icons";
@@ -6,7 +9,8 @@ import type { ProductSummary } from "@/types/product";
 
 /**
  * Hero product stage. A neutral lit "studio" card — no product silhouette, so any
- * category fits. PLACEHOLDER: no real asset yet, the stage is labelled as such.
+ * category fits. Shows the featured product's photo (its own ratio, contained);
+ * without a photo the stage stays labelled "Visuel produit à venir".
  * Floating glass chips drift at different speeds on desktop (Parallax).
  */
 export function HeroVisual({ product }: { product?: ProductSummary }) {
@@ -24,10 +28,24 @@ export function HeroVisual({ product }: { product?: ProductSummary }) {
           <div className="absolute top-[42%] left-1/2 aspect-square w-[36%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-line/60 bg-accent-soft/40" />
           {/* Floor */}
           <div className="absolute inset-x-[18%] bottom-[24%] h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,rgb(212_163_89/0.3),transparent)]" />
-          <div className="absolute top-[42%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-            <span className="block text-[0.6875rem] font-semibold tracking-[0.14em] text-muted uppercase">Visuel produit</span>
-            <span className="mt-1 block text-[0.6875rem] text-muted/70">À venir · tout format</span>
-          </div>
+          {product?.media.src ? (
+            <div className="absolute inset-x-[14%] top-[22%] bottom-[30%] flex items-center justify-center sm:top-[16%] lg:top-[12%] lg:bottom-[26%]">
+              <Image
+                src={product.media.src}
+                alt={product.media.alt}
+                width={900}
+                height={Math.round(900 / product.media.ratio)}
+                preload
+                sizes="(min-width: 1024px) 30vw, 70vw"
+                className="h-full w-auto max-w-full rounded-3xl object-contain shadow-float"
+              />
+            </div>
+          ) : (
+            <div className="absolute top-[42%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+              <span className="block text-[0.6875rem] font-semibold tracking-[0.14em] text-muted uppercase">Visuel produit</span>
+              <span className="mt-1 block text-[0.6875rem] text-muted/70">À venir · tout format</span>
+            </div>
+          )}
 
           {/* Chip inside the card (all sizes) */}
           <div className="glass absolute top-4 left-4 flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold sm:top-6 sm:left-6">
@@ -57,21 +75,17 @@ export function HeroVisual({ product }: { product?: ProductSummary }) {
       {/* Featured product mini card (sample data) */}
       {product ? (
         <Parallax speed={-12} className="absolute inset-x-3 bottom-3 sm:inset-x-6 sm:bottom-6 lg:inset-x-auto lg:-left-8 lg:bottom-10 lg:w-[20rem]">
-          <div className="glass flex items-center gap-4 rounded-2xl p-3 pr-4 shadow-float">
-            <div className="flex size-16 flex-none items-center justify-center rounded-xl bg-surface-2/70 text-[0.5625rem] font-semibold tracking-wider text-muted uppercase">
-              Visuel
-            </div>
+          <Link href={product.href} className="glass group flex items-center gap-4 rounded-2xl p-3 pr-4 shadow-float">
+            <ProductThumb media={product.media} className="size-16 flex-none" />
             <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">
-                Mise en avant <span className="rounded-full border border-line-strong px-1.5 py-px normal-case tracking-normal">exemple</span>
-              </p>
+              <p className="text-[0.625rem] font-semibold tracking-[0.14em] text-muted uppercase">Mise en avant</p>
               <p className="mt-1 truncate text-sm font-bold">{product.name}</p>
               <Price price={product.price} compareAtPrice={product.compareAtPrice} size="sm" showDiscount={false} className="mt-1" />
             </div>
-            <span aria-hidden="true" className="inline-flex size-10 flex-none items-center justify-center rounded-full bg-accent text-on-accent">
+            <span aria-hidden="true" className="inline-flex size-10 flex-none items-center justify-center rounded-full bg-accent text-on-accent transition-transform duration-300 group-hover:translate-x-0.5">
               <ArrowRightIcon />
             </span>
-          </div>
+          </Link>
         </Parallax>
       ) : null}
     </div>

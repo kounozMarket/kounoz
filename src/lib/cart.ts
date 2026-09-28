@@ -2,12 +2,16 @@
 
 import { useSyncExternalStore } from "react";
 
+import type { ProductSummary } from "@/types/product";
+
 /**
- * Lightweight cart (D-22): product id + quantity, persisted in localStorage.
- * Secondary flow only — the primary flow is the direct COD order on the product page.
- * No prices are stored: they are always read from the catalogue.
+ * Lightweight cart (D-22): product id + quantity + a display snapshot, persisted
+ * in localStorage. Secondary flow only — the primary flow is the direct COD order
+ * on the product page. The snapshot is for display: the server re-reads prices
+ * from WooCommerce when the order is created.
  */
-export type CartLine = { id: string; qty: number };
+export type CartProduct = Omit<ProductSummary, "descriptionHtml" | "gallery">;
+export type CartLine = { id: string; qty: number; product: CartProduct };
 
 export const QTY_MIN = 1;
 /** UI cap per line (Recommendation; stock rules not specified — Q-18). */
@@ -29,8 +33,8 @@ function parse(raw: string | null): CartLine[] {
     const data = JSON.parse(raw);
     if (!Array.isArray(data)) return EMPTY;
     return data
-      .filter((l): l is CartLine => typeof l?.id === "string" && typeof l?.qty === "number")
-      .map((l) => ({ id: l.id, qty: clampQty(l.qty) }));
+      .filter((l): l is CartLine => typeof l?.id === "string" && typeof l?.qty === "number" && typeof l?.product?.name === "string")
+      .map((l) => ({ id: l.id, qty: clampQty(l.qty), product: l.product }));
   } catch {
     return EMPTY;
   }
@@ -70,13 +74,16 @@ function subscribe(onChange: () => void) {
 }
 
 export const cartActions = {
-  add(id: string, qty = 1) {
+  add(product: ProductSummary, qty = 1) {
+    const { descriptionHtml: _d, gallery: _g, ...snapshot } = product;
+    void _d;
+    void _g;
     const lines = read();
-    const existing = lines.find((l) => l.id === id);
+    const existing = lines.find((l) => l.id === product.id);
     write(
       existing
-        ? lines.map((l) => (l.id === id ? { ...l, qty: clampQty(l.qty + qty) } : l))
-        : [...lines, { id, qty: clampQty(qty) }],
+        ? lines.map((l) => (l.id === product.id ? { ...l, qty: clampQty(l.qty + qty), product: snapshot } : l))
+        : [...lines, { id: product.id, qty: clampQty(qty), product: snapshot }],
     );
   },
   setQty(id: string, qty: number) {

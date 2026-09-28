@@ -3,9 +3,9 @@ import { PageHeader } from "@/components/page/PageHeader";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProductCard } from "@/components/product/ProductCard";
 import { CashIcon, ParcelCheckIcon, TruckIcon } from "@/components/ui/icons";
-import { PlaceholderTag } from "@/components/ui/PlaceholderTag";
 import { siteConfig } from "@/config/site";
-import { sampleProducts } from "@/data/sample-products";
+import { EmptyCatalog } from "@/components/product/EmptyCatalog";
+import { getProducts } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Boutique",
@@ -15,11 +15,14 @@ export const metadata: Metadata = {
 const badgeIcons = { delivery: TruckIcon, cod: CashIcon, check: ParcelCheckIcon } as const;
 
 /**
- * Catalogue page. SAMPLE data until WooCommerce is connected.
+ * Catalogue page — WooCommerce products (D-27), refreshed every 5 minutes.
  * Masonry columns: each card keeps its product ratio, no forced square crops.
  */
-export default function BoutiquePage() {
-  const count = sampleProducts.length;
+export const revalidate = 300;
+
+export default async function BoutiquePage() {
+  const products = await getProducts();
+  const count = products.length;
 
   return (
     <>
@@ -37,8 +40,9 @@ export default function BoutiquePage() {
         {/* Toolbar */}
         <div className="card flex flex-col gap-4 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between sm:px-5">
           <div className="flex flex-wrap items-center gap-3 text-sm">
-            <span className="font-bold">{count} produits</span>
-            <PlaceholderTag>Données d&apos;exemple — catalogue WooCommerce à venir</PlaceholderTag>
+            <span className="font-bold">
+              {count} produit{count > 1 ? "s" : ""}
+            </span>
           </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-muted">
             {siteConfig.reassurance.slice(0, 2).map((b) => {
@@ -53,8 +57,14 @@ export default function BoutiquePage() {
           </ul>
         </div>
 
+        {count ? null : (
+          <div className="mt-8">
+            <EmptyCatalog />
+          </div>
+        )}
+
         <Reveal className="mt-6 columns-2 gap-3 sm:gap-5 lg:mt-10 lg:columns-3 lg:gap-8 [&>article]:mb-8 sm:[&>article]:mb-10 lg:[&>article]:mb-12">
-          {sampleProducts.map((product, i) => (
+          {products.map((product, i) => (
             <ProductCard
               key={product.id}
               product={product}

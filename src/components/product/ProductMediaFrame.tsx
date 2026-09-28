@@ -45,7 +45,7 @@ export function ProductMediaFrame({ media, presentation, sizes, badge, className
           <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--color-surface-2)_-60%,var(--color-surface)_60%)]" />
           <Lighting presentation={presentation} />
           {media.src ? (
-            <Image src={media.src} alt={media.alt} fill sizes={sizes} className="object-contain p-[8%]" />
+            <Image src={media.src} alt={media.alt} fill sizes={sizes} className="object-cover" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center px-4 text-center" data-placeholder="product-image">
               <span className="text-[0.5625rem] font-semibold tracking-[0.12em] text-muted/80 uppercase sm:text-[0.6875rem]">{media.alt}</span>

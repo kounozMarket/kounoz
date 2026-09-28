@@ -8,31 +8,32 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { CashIcon, ParcelCheckIcon, TruckIcon } from "@/components/ui/icons";
-import { PlaceholderTag } from "@/components/ui/PlaceholderTag";
 import { siteConfig } from "@/config/site";
 import { getProductBySlug, getProducts } from "@/lib/catalog";
 
 const badgeIcons = { delivery: TruckIcon, cod: CashIcon, check: ParcelCheckIcon } as const;
 
-export const dynamicParams = false;
+// Products come from WooCommerce (D-27): prebuilt at build time, new ones rendered
+// on first visit, all refreshed every 5 minutes (ISR).
+export const revalidate = 300;
 
-export function generateStaticParams() {
-  return getProducts().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getProducts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/produit/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   return product ? { title: product.name } : {};
 }
 
 /** Single product page (sample data until WooCommerce). */
 export default async function ProductPage({ params }: PageProps<"/produit/[slug]">) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = getProducts().filter((p) => p.id !== product.id).slice(0, 4);
+  const related = (await getProducts()).filter((p) => p.id !== product.id).slice(0, 4);
 
   return (
     <>
@@ -65,10 +66,7 @@ export default async function ProductPage({ params }: PageProps<"/produit/[slug]
           </div>
 
           <div className="lg:col-span-5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="eyebrow">{product.category.name}</span>
-              <PlaceholderTag>Données d&apos;exemple</PlaceholderTag>
-            </div>
+            {product.category.name ? <span className="eyebrow">{product.category.name}</span> : null}
             <h1 className="mt-4 text-[clamp(1.875rem,1.4rem+2vw,2.75rem)] leading-[1.08] font-extrabold tracking-[-0.03em]">
               {product.name}
             </h1>
@@ -95,8 +93,12 @@ export default async function ProductPage({ params }: PageProps<"/produit/[slug]
                 Description
               </h2>
               <div className="mt-4">
-                {product.description ? (
-                  <p className="leading-relaxed text-text/85">{product.description}</p>
+                {product.descriptionHtml ? (
+                  <div
+                    className="space-y-3 leading-relaxed text-text/85 [&_a]:text-accent [&_a]:underline [&_h3]:mt-5 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-text [&_li]:ml-5 [&_ol]:list-decimal [&_strong]:text-text [&_ul]:list-disc"
+                    // Sanitised server-side (src/lib/html.ts).
+                    dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  />
                 ) : (
                   <ToComplete label="Description, caractéristiques et contenu du produit." question="Q-12" />
                 )}

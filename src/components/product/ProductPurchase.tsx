@@ -51,8 +51,21 @@ export function ProductPurchase({ product }: { product: ProductSummary }) {
   }
 
   function addToCart() {
-    cartActions.add(product.id, qty);
+    cartActions.add(product, qty);
     setAdded(true);
+  }
+
+  if (product.inStock === false) {
+    // Out-of-stock behaviour not specified (Q-18): safest default is no ordering.
+    return (
+      <div className="mt-8 rounded-2xl border border-line-strong bg-surface/60 p-5 text-center">
+        <p className="font-bold">Rupture de stock</p>
+        <p className="mt-1 text-sm text-muted">Ce produit n&apos;est pas disponible pour le moment.</p>
+        <Link href="/boutique" className={buttonClasses("secondary", "mt-4 w-full")}>
+          Voir la boutique
+        </Link>
+      </div>
+    );
   }
 
   return (

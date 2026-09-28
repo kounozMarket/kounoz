@@ -30,6 +30,8 @@ export type ProductSummary = {
   media: ProductMedia;
   /** Extra views for the product page gallery (the main `media` is always first). */
   gallery?: ProductMedia[];
-  /** Client-supplied description. Absent → the page shows an "À compléter" marker. */
-  description?: string;
+  /** Sanitised HTML from WooCommerce. Absent → the page shows an "À compléter" marker. */
+  descriptionHtml?: string;
+  /** False when WooCommerce marks the product out of stock. */
+  inStock?: boolean;
 };

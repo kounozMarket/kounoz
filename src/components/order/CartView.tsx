@@ -6,6 +6,7 @@ import { OrderSummary } from "@/components/order/OrderSummary";
 import { QtyStepper } from "@/components/order/QtyStepper";
 import { useCartLines } from "@/components/order/useCartLines";
 import { formatPrice } from "@/components/product/Price";
+import { ProductThumb } from "@/components/product/ProductThumb";
 import { buttonClasses } from "@/components/ui/button";
 import { ArrowRightIcon, TrashIcon } from "@/components/ui/icons";
 
@@ -24,11 +25,8 @@ export function CartView() {
           <ul className="divide-y divide-line">
             {lines.map(({ product, qty }) => (
               <li key={product.id} className="flex gap-4 p-3 sm:p-4">
-                <Link
-                  href={product.href}
-                  className="flex size-24 flex-none items-center justify-center rounded-2xl border border-line bg-surface-2/50 text-[0.5625rem] font-semibold tracking-wider text-muted uppercase sm:size-28"
-                >
-                  Visuel
+                <Link href={product.href} className="flex-none">
+                  <ProductThumb media={product.media} className="size-24 sm:size-28" sizes="112px" />
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col">
                   <div className="flex items-start justify-between gap-3">

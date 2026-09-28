@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
+import Image from "next/image";
 import { ProductMediaFrame } from "@/components/product/ProductMediaFrame";
 import { discountPercent } from "@/components/product/Price";
 import type { ProductSummary } from "@/types/product";
@@ -40,12 +41,12 @@ export function ProductGallery({ product }: { product: ProductSummary }) {
                 onClick={() => setActive(i)}
                 aria-label={`Vue ${i + 1}`}
                 aria-pressed={i === active}
-                className={`flex h-20 items-center justify-center overflow-hidden rounded-2xl border bg-surface text-[0.5rem] font-semibold tracking-wider text-muted uppercase transition-colors sm:h-24 ${
+                className={`relative flex h-20 items-center justify-center overflow-hidden rounded-2xl border bg-surface text-[0.5rem] font-semibold tracking-wider text-muted uppercase transition-colors sm:h-24 ${
                   i === active ? "border-accent" : "border-line hover:border-line-strong"
                 }`}
                 style={{ aspectRatio: view.ratio }}
               >
-                {i + 1}
+                {view.src ? <Image src={view.src} alt="" fill sizes="96px" className="object-cover" /> : i + 1}
               </button>
             </li>
           ))}

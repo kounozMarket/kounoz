@@ -6,9 +6,10 @@ import { QtyStepper } from "@/components/order/QtyStepper";
 import { formatPrice } from "@/components/product/Price";
 import { CashIcon, ParcelCheckIcon, TruckIcon } from "@/components/ui/icons";
 import { siteConfig } from "@/config/site";
-import type { ProductSummary } from "@/types/product";
+import { ProductThumb } from "@/components/product/ProductThumb";
+import type { CartProduct } from "@/lib/cart";
 
-export type SummaryLine = { product: ProductSummary; qty: number };
+export type SummaryLine = { product: CartProduct; qty: number };
 
 const badgeIcons = { delivery: TruckIcon, cod: CashIcon, check: ParcelCheckIcon } as const;
 
@@ -53,8 +54,8 @@ export function OrderSummary({ lines, onQtyChange, editHref, children, title = "
       <ul className="mt-5 divide-y divide-line">
         {lines.map(({ product, qty }) => (
           <li key={product.id} className="flex items-center gap-4 py-4 first:pt-0">
-            <div className="relative flex size-16 flex-none items-center justify-center rounded-2xl border border-line bg-surface-2/50 text-[0.5rem] font-semibold tracking-wider text-muted uppercase">
-              Visuel
+            <div className="relative flex-none">
+              <ProductThumb media={product.media} className="size-16" />
               {!onQtyChange ? (
                 <span className="absolute -top-2 -right-2 inline-flex size-6 items-center justify-center rounded-full bg-text text-[0.6875rem] font-bold text-bg">
                   {qty}
