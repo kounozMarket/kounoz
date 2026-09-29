@@ -20,6 +20,9 @@ export function proxy(request: NextRequest) {
   const token = process.env.MAINTENANCE_BYPASS_TOKEN ?? "";
   const tokenValid = token.length >= 12;
 
+  // WooCommerce webhooks must reach the site even during maintenance (signature-checked, D-29).
+  if (pathname === "/api/revalidate") return NextResponse.next();
+
   if (!on) {
     // Site live: the maintenance page itself is not reachable.
     return pathname === MAINTENANCE_PATH ? NextResponse.redirect(new URL("/", request.url)) : NextResponse.next();
