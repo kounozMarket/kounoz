@@ -59,13 +59,13 @@ export default async function ProductPage({ params }: PageProps<"/produit/[slug]
         </nav>
 
         <div className="mt-5 grid gap-8 lg:mt-8 lg:grid-cols-12 lg:gap-12 xl:gap-16">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
               <ProductGallery product={product} />
             </div>
           </div>
 
-          <div className="lg:col-span-5">
+          <div className="min-w-0 lg:col-span-5">
             {product.category.name ? <span className="eyebrow">{product.category.name}</span> : null}
             <h1 className="mt-4 text-[clamp(1.875rem,1.4rem+2vw,2.75rem)] leading-[1.08] font-extrabold tracking-[-0.03em]">
               {product.name}
