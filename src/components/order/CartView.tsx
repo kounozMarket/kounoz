@@ -17,7 +17,7 @@ export function CartView() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-12 lg:gap-10">
-      <div className="lg:col-span-7">
+      <div className="min-w-0 lg:col-span-7">
         <div className="card rounded-[1.75rem] p-2 sm:p-3">
           <p className="px-3 pt-3 pb-1 text-sm font-bold sm:px-4">
             {count} article{count > 1 ? "s" : ""}
@@ -60,7 +60,7 @@ export function CartView() {
         </Link>
       </div>
 
-      <div className="lg:col-span-5">
+      <div className="min-w-0 lg:col-span-5">
         <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
           <OrderSummary lines={lines} title="Récapitulatif">
             <Link href="/commande" className={buttonClasses("primary", "w-full")}>
