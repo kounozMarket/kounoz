@@ -9,18 +9,21 @@ import type { OrderErrors, OrderFields } from "@/lib/validation";
  */
 type FieldProps = {
   label: string;
-  hint?: string;
+  /** Arabic label, shown on the right of the French one. */
+  labelAr: string;
   error?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-function Field({ label, hint, error, id: customId, ...input }: FieldProps) {
+function Field({ label, labelAr, error, id: customId, ...input }: FieldProps) {
   const autoId = useId();
   const id = customId ?? autoId;
   return (
     <div>
       <label htmlFor={id} className="flex items-baseline justify-between gap-3 text-sm font-semibold">
         {label}
-        {hint ? <span className="text-xs font-medium text-muted">{hint}</span> : null}
+        <span lang="ar" dir="rtl" className="font-semibold text-muted">
+          {labelAr}
+        </span>
       </label>
       <input
         id={id}
@@ -68,22 +71,23 @@ export function CodFields({ values, errors, onChange, nameInputId }: CodFieldsPr
       <Group step={1} title="Informations de contact">
         <Field
           label="Nom complet"
+          labelAr="الاسم الكامل"
           name="name"
           id={nameInputId}
           autoComplete="name"
-          placeholder="Entrez votre nom complet"
+          placeholder="Nom complet — الاسم الكامل"
           value={values.name}
           error={errors.name}
           onChange={(e) => onChange("name", e.target.value)}
         />
         <Field
           label="Numéro de téléphone"
-          hint="WhatsApp"
+          labelAr="رقم الهاتف"
           name="phone"
           type="tel"
           inputMode="tel"
           autoComplete="tel"
-          placeholder="+212 6XX XXX XXX"
+          placeholder="Téléphone — رقم الهاتف"
           value={values.phone}
           error={errors.phone}
           onChange={(e) => onChange("phone", e.target.value)}
@@ -92,18 +96,20 @@ export function CodFields({ values, errors, onChange, nameInputId }: CodFieldsPr
       <Group step={2} title="Informations de livraison">
         <Field
           label="Ville"
+          labelAr="المدينة"
           name="city"
           autoComplete="address-level2"
-          placeholder="Entrez votre ville"
+          placeholder="Ville — المدينة"
           value={values.city}
           error={errors.city}
           onChange={(e) => onChange("city", e.target.value)}
         />
         <Field
           label="Adresse de livraison"
+          labelAr="عنوان التوصيل"
           name="address"
           autoComplete="street-address"
-          placeholder="123 Rue Exemple, Appt 4"
+          placeholder="Adresse — العنوان"
           value={values.address}
           error={errors.address}
           onChange={(e) => onChange("address", e.target.value)}

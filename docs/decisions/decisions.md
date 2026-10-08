@@ -34,6 +34,7 @@ Only **confirmed** decisions are recorded here (source = CDC or project owner). 
 | D-27 | 2026-09-28 | **Catalogue from WooCommerce REST API** (`wc/v3`, server-only keys in env: `WOO_URL`, `WOO_CONSUMER_KEY`, `WOO_CONSUMER_SECRET`). WPGraphQL is not used: it doesn't expose Woo products without an extra plugin. Mapping lives in `src/lib/catalog.ts`: price, sale price, first real category, photos (ratio from real media dimensions, served as WebP by next/image), sanitised description (`description` or `short_description`), stock. Category presentation comes from the ACF field `presentation` (`stage` or `studio`), default `studio`. Pages use ISR (5 min). If the API is missing or fails, the catalogue is empty and the build still succeeds. The cart keeps a display snapshot; the order step must re-read prices server-side. Out of stock means no ordering (Q-18 default). Sample data removed. | Project owner (WooCommerce set up) |
 | D-28 | 2026-09-28 | **Real COD orders.** `POST /api/commande` validates again on the server, re-reads each product live from Woo (published, purchasable, in stock), then creates a Woo order (`cod`, not paid, status `processing`). Billing and shipping: name split into first/last, phone normalised to `+212…`, city, address, country MA. **No price is accepted from the browser**: Woo computes the totals. Anti-spam: honeypot, form open ≥ 3 s, 5 orders / 10 min per IP (in-memory, single Node process). `requestId` idempotency prevents double orders. Thank-you page `/merci/[id]?cle=<order_key>` is per-request and shown only if id + key match; noindex. The checkout clears the cart on success. Still to do: Google Sheets and Purchase events. | Project owner |
 | D-29 | 2026-09-29 | **Instant catalogue refresh.** WooCommerce webhooks (`product.created`, `product.updated`, `product.deleted`, `product.restored`) POST to `/api/revalidate`. The route checks the HMAC-SHA256 signature against `WOO_WEBHOOK_SECRET`, then calls `revalidateTag("woo", { expire: 0 })` and `revalidatePath("/", "layout")`, so the next visitor gets fresh data. The route bypasses maintenance mode (signature-protected). The 5-minute ISR stays as a safety net for changes that fire no product webhook (category edits, scheduled sales). Webhooks are registered with `npm run webhooks` (idempotent). | Project owner |
+| D-30 | 2026-10-04 | **Official client content** (batch 06). À propos text, 4 commitments (Qualité Garantie, Paiement à la Livraison, Livraison Rapide et Fiable, Service Client Réactif → `siteConfig.engagements`), contact details (Hay Riad, Rabat — Maroc, 10100, contact@konouzmarket.com, « Boutique en ligne — Livraison partout au Maroc » → `siteConfig.contact`), exchange policy (manufacturing defect / transport damage / non-conformity, report on WhatsApp within 48 h of receipt, original packaging, complete, unused; return shipping paid by Konouz Market on proven defect or our error), privacy policy (new page `/politique-de-confidentialite`), delivery through partner delivery companies. Order-form placeholders are bilingual FR — AR; fields unchanged. | Client (via project owner) |
 
 ## Open questions (require client confirmation)
 | ID | Question |
@@ -42,19 +43,19 @@ Only **confirmed** decisions are recorded here (source = CDC or project owner). 
 | Q-02 | ~~One or two fields~~ — **separate** Ville + Adresse (D-22). Still open: city as free text (current) or a dropdown list? |
 | Q-03 | ~~Quantity / multiple products~~ — yes (D-22). Still open: product variants (volume/size)? |
 | Q-04 | Shipping fee shown to customer? Free delivery? (Not specified — do not claim free delivery.) |
-| Q-05 | WhatsApp number(s) for floating button and form label. |
+| Q-05 | WhatsApp number(s) for floating button and form label. Client says "use the configured number", but `NEXT_PUBLIC_WHATSAPP_NUMBER` is not set locally: confirm it is set on Hostinger. |
 | Q-06 | ~~Arabic font~~ — obsolete (D-15). |
 | Q-07 | ~~Arabic brand name spelling~~ — obsolete for UI (D-15). |
 | Q-08 | Hosting: Next.js on Hostinger (Node plan?) or elsewhere (e.g. Vercel)? WordPress on subdomain (e.g. admin./api.)? |
 | Q-09 | Google Sheets: which Google account/sheet; extra columns (order ID, address, quantity, status)? |
 | Q-10 | Carriers actually used (Amana, Cathedis, Ozone, other) and required label format/integration. |
-| Q-11 | Legal page contents (shipping, T&C, returns/exchange), company legal info, privacy policy/CNDP. |
+| Q-11 | Partly answered by D-30. Still open: legal entity (raison sociale, forme juridique, ICE, RC), CNDP declaration, governing law, delivery-time details, procedure on absence/refusal, last-updated date of the legal texts. |
 | Q-12 | Product data for the 3 test products: names, prices, sale prices, descriptions, photos/videos. |
 | Q-13 | Initial product line: CDC says "produits tendance et accessoires premium"; brief mentions perfumes/body care. Confirm. |
 | Q-14 | Brief mentions a "packaging/product visual reference" — not present in the folder. Is there an additional file? |
 | Q-15 | ~~Inline vs popup~~ — **inline** on the product page (D-22). |
 | Q-16 | Tracking extras: ViewContent/InitiateCheckout events, TikTok Events API, GA4/GTM, cookie consent? Pixel IDs & access. |
-| Q-17 | Pages beyond products + legal: owner set the menu: Accueil, Nos engagements, Boutique, À propos, Contact (French). Still open: À propos page content, a dedicated Contact page vs the footer anchor, FAQ, social links. |
+| Q-17 | Pages beyond products + legal: owner set the menu: Accueil, Nos engagements, Boutique, À propos, Contact (French). À propos content and Contact page answered by D-30. Still open: FAQ, social links. |
 | Q-18 | Out-of-stock behaviour (hide product, disable form, "notify me")? |
 | Q-19 | Vector (SVG) logo available? |
 | Q-20 | ~~Final French order-CTA copy~~ — **« Commander maintenant »** (D-22). |

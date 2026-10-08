@@ -11,12 +11,14 @@ export const metadata: Metadata = {
   description: "Contactez KONOUZ MARKET sur WhatsApp pour toute question sur un produit ou une commande.",
 };
 
-// Channels not supplied yet (Q-05, Q-17). Replace each placeholder with client data.
+const { contact } = siteConfig;
+
+// Official client details (2026-10-04). WhatsApp is the card on the left.
 const details = [
-  { label: "E-mail", question: "Q-17" },
-  { label: "Horaires de réponse", question: "Q-17" },
-  { label: "Adresse", question: "Q-11" },
-  { label: "Réseaux sociaux", question: "Q-17" },
+  { label: "Siège administratif", value: contact.address },
+  { label: "Code postal", value: contact.postalCode },
+  { label: "E-mail", value: contact.email, href: `mailto:${contact.email}` },
+  { label: "Activité", value: contact.activity },
 ];
 
 function WhatsAppGlyph({ className = "size-7" }: { className?: string }) {
@@ -54,7 +56,8 @@ export default function ContactPage() {
             Réponse <span className="text-gold">directe</span>
           </h2>
           <p className="relative mt-3 max-w-sm text-muted">
-            Le moyen le plus simple de nous joindre pour toute demande d&apos;information.
+            Service client {contact.company} : le moyen le plus simple de nous joindre pour toute question sur un
+            produit ou une commande.
           </p>
           <div className="relative mt-8 max-w-md">
             {whatsapp ? (
@@ -72,8 +75,14 @@ export default function ContactPage() {
           {details.map((d) => (
             <div key={d.label} className="card rounded-2xl p-5">
               <dt className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">{d.label}</dt>
-              <dd className="mt-3">
-                <ToComplete label={d.label} question={d.question} />
+              <dd className="mt-3 font-semibold">
+                {d.href ? (
+                  <a href={d.href} className="break-all transition-colors hover:text-accent">
+                    {d.value}
+                  </a>
+                ) : (
+                  d.value
+                )}
               </dd>
             </div>
           ))}

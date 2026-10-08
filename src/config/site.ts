@@ -38,6 +38,40 @@ export const siteConfig = {
     { label: "Politique de livraison", href: "/politique-de-livraison" },
     { label: "Conditions générales", href: "/conditions-generales" },
     { label: "Politique de retour et d'échange", href: "/politique-de-retour" },
+    { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
+  ],
+
+  /** Official contact details (client, 2026-10-04). WhatsApp stays `whatsappNumber`. */
+  contact: {
+    company: "Konouz Market",
+    address: "Hay Riad, Rabat — Maroc",
+    postalCode: "10100",
+    email: "contact@konouzmarket.com",
+    activity: "Boutique en ligne — Livraison partout au Maroc",
+  },
+
+  /** "Nos engagements" section (official client wording, 2026-10-04). */
+  engagements: [
+    {
+      id: "quality",
+      title: "Qualité Garantie",
+      text: "Des articles minutieusement sélectionnés et rigoureusement conformes aux descriptions présentées.",
+    },
+    {
+      id: "cod",
+      title: "Paiement à la Livraison",
+      text: "Commandez en toute sérénité ; vous ne payez qu'une fois votre colis reçu et vérifié en main propre.",
+    },
+    {
+      id: "delivery",
+      title: "Livraison Rapide et Fiable",
+      text: "Une couverture optimale pour assurer une réception rapide et dans les meilleures conditions.",
+    },
+    {
+      id: "support",
+      title: "Service Client Réactif",
+      text: "Notre équipe reste à votre entière disposition via WhatsApp pour répondre à vos questions et assurer un suivi personnalisé.",
+    },
   ],
 
   /** Confirmed reassurance badges (CDC §3, D-07). Wording is the CDC's own French text. */

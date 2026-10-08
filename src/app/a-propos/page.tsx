@@ -4,13 +4,13 @@ import { Logo } from "@/components/brand/Logo";
 import { Engagements } from "@/components/home/Engagements";
 import { OrderSteps } from "@/components/page/OrderSteps";
 import { PageHeader } from "@/components/page/PageHeader";
-import { ToComplete } from "@/components/page/ToComplete";
 import { buttonClasses } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
   title: "À propos",
-  description: "KONOUZ MARKET : boutique en ligne marocaine, livraison partout au Maroc et paiement à la réception.",
+  description:
+    "Konouz Market : une sélection rigoureuse de produits innovants et pratiques, livrés partout au Maroc avec paiement à la livraison.",
 };
 
 export default function AboutPage() {
@@ -23,7 +23,7 @@ export default function AboutPage() {
             KONOUZ <span className="text-gold">MARKET</span>
           </>
         }
-        intro="Boutique en ligne marocaine. Vous commandez en quelques secondes, nous livrons partout au Maroc, vous payez à la réception."
+        intro="Bienvenue sur Konouz Market, votre boutique en ligne de référence dédiée à une sélection rigoureuse de produits innovants et pratiques, alliant qualité supérieure, utilité quotidienne et prix compétitifs."
       />
 
       <section aria-label="Présentation de la marque" className="container-site grid gap-4 lg:grid-cols-12 lg:gap-6">
@@ -32,15 +32,24 @@ export default function AboutPage() {
           <Logo variant="full" className="relative h-28 w-auto lg:h-36" />
         </div>
         <div className="card flex flex-col justify-center gap-5 rounded-[2rem] p-6 sm:p-10 lg:col-span-7">
-          <p className="eyebrow self-start">Notre histoire</p>
+          <p className="eyebrow self-start">Notre mission</p>
           <h2 className="text-h2">
-            La marque, <span className="text-muted">en quelques mots</span>
+            À propos de <span className="text-gold">Konouz Market</span>
           </h2>
-          <ToComplete label="Présentation de la marque : histoire, mission, valeurs, univers produits." question="Q-17" />
+          <div className="space-y-4 leading-relaxed text-text/85">
+            <p>
+              Notre mission est de simplifier votre expérience d&apos;achat en ligne en vous proposant des solutions fiables,
+              livrées directement à votre porte en toute sécurité et rapidité.
+            </p>
+            <p>
+              Nous croyons fermement que la confiance est la base d&apos;une relation durable ; c&apos;est pourquoi nous
+              privilégions une transparence totale et un contrôle rigoureux de la qualité de chaque article avant son expédition.
+            </p>
+          </div>
         </div>
       </section>
 
-      <Engagements />
+      <Engagements title="Pourquoi choisir Konouz Market ?" />
       <OrderSteps />
 
       <section className="container-site pb-section lg:pb-section-lg">

@@ -56,6 +56,24 @@ export function ParcelCheckIcon({ className = "size-6" }: IconProps) {
   );
 }
 
+export function ShieldCheckIcon({ className = "size-6" }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M12 3 5 6v5.5c0 4.3 2.9 8 7 9.5 4.1-1.5 7-5.2 7-9.5V6l-7-3Z" />
+      <path d="m9 12 2.2 2.2L15.5 10" />
+    </svg>
+  );
+}
+
+export function ChatIcon({ className = "size-6" }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M20 11.5a8 8 0 0 1-11.8 7.04L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z" />
+      <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" />
+    </svg>
+  );
+}
+
 export function BagIcon({ className = "size-5" }: IconProps) {
   return (
     <svg {...base} className={className}>
