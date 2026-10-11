@@ -30,15 +30,22 @@ export function HeroVisual({ product }: { product?: ProductSummary }) {
           <div className="absolute inset-x-[18%] bottom-[24%] h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,rgb(212_163_89/0.3),transparent)]" />
           {product?.media.src ? (
             <div className="absolute inset-x-[14%] top-[22%] bottom-[30%] flex items-center justify-center sm:top-[16%] lg:top-[12%] lg:bottom-[26%]">
-              <Image
-                src={product.media.src}
-                alt={product.media.alt}
-                width={900}
-                height={Math.round(900 / product.media.ratio)}
-                preload
-                sizes="(min-width: 1024px) 30vw, 70vw"
-                className="h-full w-auto max-w-full rounded-3xl object-contain shadow-float"
-              />
+              {/* Gold-gradient frame + inner hairline and top sheen over the photo */}
+              <div className="relative flex h-full max-w-full rounded-[1.75rem] bg-[linear-gradient(160deg,rgb(212_163_89/0.6),rgb(255_255_255/0.06)_45%,rgb(212_163_89/0.3))] p-[5px] shadow-float lg:rounded-[2rem] lg:p-1.5">
+                <Image
+                  src={product.media.src}
+                  alt={product.media.alt}
+                  width={900}
+                  height={Math.round(900 / product.media.ratio)}
+                  preload
+                  sizes="(min-width: 1024px) 30vw, 70vw"
+                  className="h-full w-auto max-w-full rounded-[1.4rem] object-contain lg:rounded-[1.6rem]"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-[5px] rounded-[1.4rem] bg-[linear-gradient(180deg,rgb(255_255_255/0.1),transparent_30%)] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.12)] lg:inset-1.5 lg:rounded-[1.6rem]"
+                />
+              </div>
             </div>
           ) : (
             <div className="absolute top-[42%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
