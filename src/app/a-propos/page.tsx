@@ -6,6 +6,7 @@ import { OrderSteps } from "@/components/page/OrderSteps";
 import { PageHeader } from "@/components/page/PageHeader";
 import { buttonClasses } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/ui/icons";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = {
   title: "À propos",
@@ -46,6 +47,7 @@ export default function AboutPage() {
               privilégions une transparence totale et un contrôle rigoureux de la qualité de chaque article avant son expédition.
             </p>
           </div>
+          <SocialLinks className="pt-1" />
         </div>
       </section>
 

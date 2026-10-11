@@ -55,7 +55,7 @@ Only **confirmed** decisions are recorded here (source = CDC or project owner). 
 | Q-14 | Brief mentions a "packaging/product visual reference" — not present in the folder. Is there an additional file? |
 | Q-15 | ~~Inline vs popup~~ — **inline** on the product page (D-22). |
 | Q-16 | Tracking extras: ViewContent/InitiateCheckout events, TikTok Events API, GA4/GTM, cookie consent? Pixel IDs & access. |
-| Q-17 | Pages beyond products + legal: owner set the menu: Accueil, Nos engagements, Boutique, À propos, Contact (French). À propos content and Contact page answered by D-30. Still open: FAQ, social links. |
+| Q-17 | Pages beyond products + legal: owner set the menu: Accueil, Nos engagements, Boutique, À propos, Contact (French). À propos content and Contact page answered by D-30. Still open: FAQ. Social links answered (batch 07). |
 | Q-18 | Out-of-stock behaviour (hide product, disable form, "notify me")? |
 | Q-19 | Vector (SVG) logo available? |
 | Q-20 | ~~Final French order-CTA copy~~ — **« Commander maintenant »** (D-22). |

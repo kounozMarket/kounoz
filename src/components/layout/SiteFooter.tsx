@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { siteConfig, whatsappHref } from "@/config/site";
-
 
 /**
  * Compact black footer (D-19). One slim band:
- * mobile = centred stack; desktop = logo | legal links | contact + ©.
+ * mobile = centred stack; desktop = logo | legal links | social + contact + ©.
  * Legal links come from `siteConfig.legalPages`.
  * Background follows the theme (`--color-footer`): black in dark, #EAE7E1 in light.
  */
@@ -29,7 +29,8 @@ export function SiteFooter() {
           ))}
         </ul>
 
-        <div className="flex flex-col items-center gap-2 lg:flex-row lg:gap-6">
+        <div className="flex flex-col items-center gap-4 lg:flex-row lg:gap-6">
+          <SocialLinks />
           {whatsapp ? (
             <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="link-sweep pb-0.5 font-semibold text-text hover:text-accent">
               WhatsApp

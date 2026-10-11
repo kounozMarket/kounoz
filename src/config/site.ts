@@ -50,6 +50,13 @@ export const siteConfig = {
     activity: "Boutique en ligne — Livraison partout au Maroc",
   },
 
+  /** Official social accounts (client, 2026-10-11). Tracking params stripped. */
+  social: [
+    { id: "instagram", label: "Instagram", href: "https://www.instagram.com/marketkonouz" },
+    { id: "facebook", label: "Facebook", href: "https://www.facebook.com/share/1F9VkYAgim/" },
+    { id: "tiktok", label: "TikTok", href: "https://www.tiktok.com/@konouzmarket" },
+  ],
+
   /** "Nos engagements" section (official client wording, 2026-10-04). */
   engagements: [
     {

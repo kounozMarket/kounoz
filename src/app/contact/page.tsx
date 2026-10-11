@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page/PageHeader";
 import { ToComplete } from "@/components/page/ToComplete";
 import { buttonClasses } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/ui/icons";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 import { siteConfig, whatsappHref } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -87,6 +88,13 @@ export default function ContactPage() {
             </div>
           ))}
         </dl>
+      </section>
+
+      <section aria-labelledby="contact-social" className="container-site mt-4 lg:mt-6">
+        <h2 id="contact-social" className="mb-4 text-xs font-semibold tracking-[0.14em] text-muted uppercase">
+          Suivez-nous
+        </h2>
+        <SocialLinks variant="cards" />
       </section>
 
       <OrderSteps />
